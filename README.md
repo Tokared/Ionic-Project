@@ -18,8 +18,8 @@
 * ### Data cannot be updated in time on the pages：
 	* Solution : <br>
 		* import \{ NgZone \} from '@angular\/core' <br>
-		  this.zone.run\( \(\)\ =\> \{ <br>
-				//core   <br>
+		  this.zone.run\( \(\) =\> \{ <br>
+				//	core   <br>
 		  }) <br>
 	* Tip : constructor\(private zone:NgZone\)<br>
 	* [Reference document](http://www.jason-z.com/post/30)<br>
