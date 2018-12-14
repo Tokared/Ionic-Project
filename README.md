@@ -26,5 +26,5 @@
 
 * ### Cover the original style of the ionic component
 	* Solution : CSS has higher priority than ionic css<br>
-	* Tip :  Universal Selector (*) \< Element (Type) Selector \< Class Selector \< Attribute Selector \< Pseudo Class \< ID Selector \< Inline Style \<！important<br>
+	* Tip :  Universal Selector (*) \< Element (Type) Selector \< Class Selector \< Attribute Selector \< Pseudo Class \< ID Selector \< Inline Style \< !important<br>
 	* [Reference document]()<br> 
