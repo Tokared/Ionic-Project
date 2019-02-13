@@ -28,7 +28,10 @@
 
 * #### Cover the original style of the ionic component
 	* Solution : CSS has higher priority than ionic css<br>
-	* Tip : ``` Universal Selector (*) < Element (Type) Selector < Class Selector < Attribute Selector < Pseudo Class < ID Selector < Inline Style < !important<br> 	```
+	* Tip:
+	``` 
+	Universal Selector (*) < Element (Type) Selector < Class Selector < Attribute Selector < Pseudo Class < ID Selector < Inline Style < !important 	
+	```
 	* [Reference document]()<br> 
 
 * #### 接口请求的Url,空格，斜杠/都不能多不能少，这是电脑测试不出来的bug
@@ -65,16 +68,16 @@ display: -webkit-box;
 overflow: hidden;
 ```
 * #### flex  
-* ##### 多行控制: white-space:(normal 正常换行/nowrap禁止换行);
+	* 多行控制: white-space:(normal 正常换行/nowrap禁止换行);
 	
 ****
 
 ### Angular<br>
 * #### Command
 	* 在html标签里的item 不用{{ }}表示，直接是调用即可。
-1.ngIf
-   1.写法：<div *ngIf="condition">...</div>
-	  1. 作用：""内是判断条件，boolean类型
+	* 1. ngIf
+	     1. 写法：<div *ngIf="condition">...</div>
+	     1. 作用：""内是判断条件，boolean类型
 
 2.ngFor (外标签内容不定) 
    2.写法：<li *ngFor="let item of items;let i =index ">{{item}}</li>
