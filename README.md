@@ -156,7 +156,7 @@ overflow: hidden;
 	*  VSCode	
 	
 * #### 打包指令
-	``` 
+	```Bash
 	ionic cordova build android 
 	ionic cordova build ios 
 	```
