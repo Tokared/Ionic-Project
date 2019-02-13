@@ -20,7 +20,7 @@
 	```javascript
 	import { NgZone } from '@angular/core' 
 		this.zone.run( () => { 
-			//	core   
+			//core   
 		}) 
 	```
 	* Tip : constructor\(private zone:NgZone\)<br>
@@ -106,9 +106,9 @@ overflow: hidden;
 	      * 纯管道：只有检查到输入值发生纯变更时，才会执行纯管道。纯变更指的是，原始类型值(String,Number,Boolean,Symbol)的改变，或者对象引用的改变(对象值改变不是纯变更，不会执行)。
 	      * 非纯管道：在每个组件的变更检测周期执行。
 ```
-{{ 输入数据 | 管道名字 : 管道参数 }} 
+	{{ 输入数据 | 管道名字 : 管道参数 }} 
 
-{{ 输入数据 | 管道名字 }} 
+	{{ 输入数据 | 管道名字 }} 
 ```	
 ****
 
@@ -128,13 +128,10 @@ overflow: hidden;
 	}
 	console.log(i);
 	// i is not defined
-	
 	var tmp = 123;
-
 	if (true) {
 	  tmp = 'abc'; // ReferenceError 这里的tmp和外代码块的tmp不是一个。
 	  let tmp;
-
 	}
 	```
 		
