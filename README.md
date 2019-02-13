@@ -76,11 +76,17 @@ overflow: hidden;
 * #### Command
 	* 在html标签里的item 不用{{ }}表示，直接是调用即可。
 	1. ngIf
-	   1. 写法：<div *ngIf="condition">...</div>
-	   1. 作用：""内是判断条件，boolean类型
+	   1. 写法：
+	   ```
+	   <div *ngIf="condition">...</div>
+	   ```
+	   1. 作用：" "内是判断条件，boolean类型
 
 	2. ngFor (外标签内容不定) 
-	   2. 写法：<li *ngFor="let item of items;let i =index ">{{item}}</li>
+	   2. 写法：
+	   ```
+	   <li *ngFor="let item of items;let i =index ">{{item}}</li>
+	   ```
 	   2. 作用："item为局部变量，items为ts文件内的数组，同理,i 代指 index属性为索引，用于跟踪item位置"
 			
 	3. ngForOf 
