@@ -60,7 +60,7 @@
 
 ### Css<br>
 * #### 显示多行，且有行数限制
-```css
+```Css
 display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
@@ -147,20 +147,20 @@ overflow: hidden;
 ### Project Packaging (Ioinc) <br>
 * #### 环境：
 	*  nodejs
-	*  jdk  (java的开发基础类库，因为是android平台)
-	*  SDK	(安卓开发集成包，集成了安卓的开发工具，插件，API等等) 
-	*  gradle	( JAVA界的Weboack ，支撑app的编译，打包的流程) 
+	*  jdk			(java的开发基础类库，因为是android平台)
+	*  SDK			(安卓开发集成包，集成了安卓的开发工具，插件，API等等) 
+	*  gradle		( JAVA界的Weboack ，支撑app的编译，打包的流程) 
 	
 * #### 工具
 	*  gitbash
 	*  VSCode	
 	
 * #### 打包指令
-	```Bash
+	```
 	ionic cordova build android 
 	ionic cordova build ios 
 	```
-	
+
 * #### 问题：
 	* failed to install EAccountSDK
 	* Error: xcodebuild was not found. Please install version 7.0.0 or greater from App Store
