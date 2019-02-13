@@ -17,18 +17,17 @@
 	
 * #### Data cannot be updated in time on the pages：
 	* Solution : <br>
-	```
-	import { NgZone } from '@angular/core' <br>
-		this.zone.run( () => { <br>
-			//	core   <br>
-		}) <br>
+	```javascript
+	import { NgZone } from '@angular/core' 
+		this.zone.run( () => { 
+			//	core   
+		}) 
 	```
 	* Tip : constructor\(private zone:NgZone\)<br>
 	* [Reference document](http://www.jason-z.com/post/30)<br>
 
 * #### Cover the original style of the ionic component
 	* Solution : CSS has higher priority than ionic css<br>
-	* Tip:
 	``` 
 	Universal Selector (*) < Element (Type) Selector < Class Selector < Attribute Selector < Pseudo Class < ID Selector < Inline Style < !important 	
 	```
@@ -61,7 +60,7 @@
 
 ### Css<br>
 * #### 显示多行，且有行数限制
-```
+```css
 display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
@@ -76,19 +75,19 @@ overflow: hidden;
 * #### Command
 	* 在html标签里的item 不用{{ }}表示，直接是调用即可。
 	1. ngIf
-	   ```
+	   ```html
 	   <div *ngIf="condition">...</div>
 	   ```
 	   * 作用：" "内是判断条件，boolean类型
 
 	2. ngFor (外标签内容不定)
-	   ```
+	   ```html
 	   <li *ngFor="let item of items;let i =index ">{{item}}</li>
 	   ```
 	   * 作用："item为局部变量，items为ts文件内的数组，同理,i 代指 index属性为索引，用于跟踪item位置"
 			
 	3. ngForOf
-	   ```
+	   ```html
 	   <ng-template="ngFor let item of items; index as i; trackBy: trackByFn">
 	   {{item}}
 	   </ng-template>
@@ -96,7 +95,7 @@ overflow: hidden;
 	   * 作用：可添加筛选条件，选取数组的某一部分。	
 	   
 	4. ngClass
-	   ```
+	   ```html
 	   <span [ngClass]="{'text-danger': i==0}">{{item}}</span>
 	   ```
 	   * 作用：给标签动态添加class样式属性
@@ -148,9 +147,9 @@ overflow: hidden;
 ### Project Packaging (Ioinc) <br>
 * #### 环境：
 	*  nodejs
-	*  jdk(java的开发基础类库，因为是android平台)
-	*  SDK(安卓开发集成包，集成了安卓的开发工具，插件，API等等) 
-	*  gradle( JAVA界的Weboack ，支撑app的编译，打包的流程) 
+	*  jdk  (java的开发基础类库，因为是android平台)
+	*  SDK	(安卓开发集成包，集成了安卓的开发工具，插件，API等等) 
+	*  gradle	( JAVA界的Weboack ，支撑app的编译，打包的流程) 
 	
 * #### 工具
 	*  gitbash
