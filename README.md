@@ -68,7 +68,7 @@ display: -webkit-box;
 overflow: hidden;
 ```
 * #### flex  
-	* 多行控制: white-space:(normal 正常换行/nowrap禁止换行);
+	* 多行控制: white-space:(normal 正常换行/nowrap禁止换行)
 	
 ****
 
@@ -76,21 +76,18 @@ overflow: hidden;
 * #### Command
 	* 在html标签里的item 不用{{ }}表示，直接是调用即可。
 	1. ngIf
-	   1. 写法：
 	   ```
 	   <div *ngIf="condition">...</div>
 	   ```
 	   1. 作用：" "内是判断条件，boolean类型
 
 	2. ngFor (外标签内容不定)
-	   2. 写法：
 	   ```
 	   <li *ngFor="let item of items;let i =index ">{{item}}</li>
 	   ```
 	   2. 作用："item为局部变量，items为ts文件内的数组，同理,i 代指 index属性为索引，用于跟踪item位置"
 			
 	3. ngForOf
-	   3. 写法：
 	   ```
 	   <ng-template="ngFor let item of items; index as i; trackBy: trackByFn">
 	   {{item}}
@@ -99,7 +96,6 @@ overflow: hidden;
 	   3. 作用：可添加筛选条件，选取数组的某一部分。
 				
 	4. ngClass
-	   4. 写法：
 	   ```
 	   <span [ngClass]="{'text-danger': i==0}">{{item}}</span>
 	   ```
