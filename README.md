@@ -75,31 +75,31 @@ overflow: hidden;
 ### Angular<br>
 * #### Command
 	* 在html标签里的item 不用{{ }}表示，直接是调用即可。
-	* 1. ngIf
-	     1. 写法：<div *ngIf="condition">...</div>
-	     1. 作用：""内是判断条件，boolean类型
+	1. ngIf
+	   1. 写法：<div *ngIf="condition">...</div>
+	   1. 作用：""内是判断条件，boolean类型
 
-2.ngFor (外标签内容不定) 
-   2.写法：<li *ngFor="let item of items;let i =index ">{{item}}</li>
-	  2.作用："item为局部变量，items为ts文件内的数组，同理,i 代指 index属性为索引，用于跟踪item位置"
+2. ngFor (外标签内容不定) 
+   2. 写法：<li *ngFor="let item of items;let i =index ">{{item}}</li>
+   2. 作用："item为局部变量，items为ts文件内的数组，同理,i 代指 index属性为索引，用于跟踪item位置"
 		
-3.ngForOf 
-   3.写法：<ng-template="ngFor let item of items; index as i; trackBy: trackByFn">{{item}}</ng-template>
-	  3.作用：可添加筛选条件，选取数组的某一部分。
+3. ngForOf 
+   3. 写法：<ng-template="ngFor let item of items; index as i; trackBy: trackByFn">{{item}}</ng-template>
+   3. 作用：可添加筛选条件，选取数组的某一部分。
 			
-4.ngClas 
-   4.<span [ngClass]="{'text-danger': i==0}">{{item}}</span>
-	  4.作用：给标签动态添加class样式属性
-				
-* [Reference document](https://semlinker.com/ng-quick-start/)<br>
-5.pipe 
-   5.管道分为 纯管道 和 非纯管道
-	  5.纯管道：只有检查到输入值发生纯变更时，才会执行纯管道。纯变更指的是，原始类型值(String,Number,Boolean,Symbol)的改变，或者对象引用的改变(对象值改变不是纯变更，不会执行)。
-	  5.非纯管道：在每个组件的变更检测周期执行。
+4. ngClas 
+   4. 写法：<span [ngClass]="{'text-danger': i==0}">{{item}}</span>
+	  4. 作用：给标签动态添加class样式属性
+	  4. [Reference document](https://semlinker.com/ng-quick-start/)<br>
+	  
+5. pipe 
+   5. 管道分为 纯管道 和 非纯管道
+	  5. 纯管道：只有检查到输入值发生纯变更时，才会执行纯管道。纯变更指的是，原始类型值(String,Number,Boolean,Symbol)的改变，或者对象引用的改变(对象值改变不是纯变更，不会执行)。
+	  5. 非纯管道：在每个组件的变更检测周期执行。
 ```
-	{{ 输入数据 | 管道名字 : 管道参数 }} 
+{{ 输入数据 | 管道名字 : 管道参数 }} 
 
-	{{ 输入数据 | 管道名字 }} 
+{{ 输入数据 | 管道名字 }} 
 ```	
 ****
 
