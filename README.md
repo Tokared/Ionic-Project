@@ -115,11 +115,13 @@ overflow: hidden;
 ### ES6 Grammar<br>
 * #### Command
 	* let (块级作用域)
+	   1. 作用：let命令在其所在的代码块内有效。
+	   2. 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+	   
 	```javascript
 	let param = 1;
 	```
-	   1. 作用：let命令在其所在的代码块内有效。
-	   2. 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+	
 	```javascript
 	for (let i = 0; i < 10; i++) {
 		...
@@ -137,13 +139,10 @@ overflow: hidden;
 	```
 		
 	* const (只读的常量，一旦生命，不能改变)
-	```javascript
-	const param = 1;
-	```
-	   * 作用：const命令在其所在的代码块内有效。
+		* 作用：const命令在其所在的代码块内有效。
 	
 	```javascript
-		
+	const param = 1;
 	```
 
 ****
