@@ -82,12 +82,12 @@
 
 ### Css<br>
 * #### 显示多行，且有行数限制
-```Css
-display: -webkit-box;
--webkit-box-orient: vertical;
--webkit-line-clamp: 3;
-overflow: hidden;
-```
+	```css
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+	```
 * #### flex  
 	* 多行控制: white-space:(normal 正常换行/nowrap禁止换行)
 * #### 栅格系统(grid-row-col)
@@ -96,20 +96,18 @@ overflow: hidden;
 	每列占屏比例设置：col-12/显示列数
 	例：占3列也就是 3/12=4 => col-4 
 	```
-	不同屏幕大小对应的参数
+	* 不同屏幕对应的参数
 	```
 	col-xs-超小屏幕 手机 (<768px),
 	col-sm-小屏幕 平板 (≥768px),
 	col-md-中等屏幕 桌面显示器 (≥992px)(栅格参数)
 	```
-* #### 行内显示，有超出则隐藏并添加为...
-```Css
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-```	
-
-
+* #### 行内显示，有超出则隐藏并添加省略 (...)
+	```css
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	```	
 ****
 
 ### Angular<br>
