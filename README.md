@@ -156,32 +156,30 @@ white-space: nowrap;
 ### ES6 Grammar<br>
 * #### Command
 	* let (块级作用域)
-	   1. 作用：let命令在其所在的代码块内有效。
-	   2. 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
-	   
-	```javascript
-	let param = 1;
-	```
-	
-	```javascript
-	for (let i = 0; i < 10; i++) {
-		...
-	}
-	console.log(i);
-	// i is not defined
-	var tmp = 123;
-	if (true) {
-	  tmp = 'abc'; // ReferenceError 这里的tmp和外代码块的tmp不是一个。
-	  let tmp;
-	}
+		1. 作用：let命令在其所在的代码块内有效。
+		2. 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+		```javascript
+		let param = 1;
+		```
+		
+		```javascript
+		for (let i = 0; i < 10; i++) {
+			...
+		}
+		console.log(i);
+		// i is not defined
+		var tmp = 123;
+		if (true) {
+		  tmp = 'abc'; // ReferenceError 这里的tmp和外代码块的tmp不是一个。
+		  let tmp;
+		}
 	```
 		
 	* const (只读的常量，一旦生命，不能改变)
 		* 作用：const命令在其所在的代码块内有效。
-	
-	```javascript
-	const param = 1;
-	```
+		```javascript
+		const param = 1;
+		```
 	* 解构赋值
 		* 解构：允许按照一定模式，从数组和对象中提取值，对变量进行赋值
 		```javascript
@@ -191,31 +189,32 @@ white-space: nowrap;
 		let c = 3;
 		// 等同于下面(数组形式)
 		let [a,b,c] = [1,2,3];
+		
 		/*-----------------------*/
+		
 		let [x = 1] = [undefined];
 		x // 1
 		let [x = 1] = [null];
 		x // null
-		/*-----------------------*/
 		
 		//对象 
 		let { foo, bar } = { foo: "aaa", bar: "bbb" };
 		foo // "aaa"
 		bar // "bbb"
+		
 		/*-----------------------*/
+		
 		let { foo: baz } = { foo: "aaa", bar: "bbb" };
 		baz // "aaa"
 		foo // error: foo is not defined
 		//先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。
 		
-		/*-----------------------*/
 		//字符串
 		const [a, b, c, d] = 'code';
 		a // "c"
 		b // "o"
 		c // "d"
 		d // "e"
-		
 		```
 	* tips:
 		* 如果解构不成功，变量的值就等于undefined
@@ -305,7 +304,7 @@ white-space: nowrap;
 	* 常见错误：
 		
 
-#### npm和yarn区别
+* #### npm和yarn区别
 | npm | yarn |
 | ------------- | ----------- |
 |  npm install  |  yarn	|
