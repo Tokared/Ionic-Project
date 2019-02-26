@@ -173,7 +173,7 @@ white-space: nowrap;
 		  tmp = 'abc'; // ReferenceError 这里的tmp和外代码块的tmp不是一个。
 		  let tmp;
 		}
-	```
+		```
 		
 	* const (只读的常量，一旦生命，不能改变)
 		* 作用：const命令在其所在的代码块内有效。
