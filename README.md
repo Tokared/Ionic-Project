@@ -305,12 +305,12 @@ white-space: nowrap;
 		
 
 * #### npm和yarn区别
-| npm | yarn |
-| ------------- | ----------- |
-|  npm install  |  yarn	|
-|  npm install [package] |  yarn add  [package]	|	
-|  npm uninstall [package]   | yarn remove [package]	|		
-|  npm update |  yarn upgrade	|	
+	| npm | yarn |
+	| ------------- | ----------- |
+	|  npm install  |  yarn	|
+	|  npm install [package] |  yarn add  [package]	|	
+	|  npm uninstall [package]   | yarn remove [package]	|		
+	|  npm update |  yarn upgrade	|	
  
 ****
 
