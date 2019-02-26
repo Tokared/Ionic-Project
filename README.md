@@ -268,7 +268,7 @@ white-space: nowrap;
 	* Error: xcodebuild was not found. Please install version 7.0.0 or greater from App Store
 		* 原因: windows系统 没有xcode IDE
 	
-	* [Reference document](https://blog.csdn.net/qq_20264891/article/details/79319408)<br> 
+	* [文档](https://blog.csdn.net/qq_20264891/article/details/79319408)<br> 
 	
 ###	Regular Expression  正则表达式<br>
 * #### 字符串中截取指定字符
@@ -294,7 +294,6 @@ white-space: nowrap;
  
 ### Yarn
 * #### JS 包管理工具，正如官方文档中写的，Yarn 是为了弥补 npm 的一些缺陷而出现的。
-	
 	* 常用命令：
 		* 
 		* yarn install 安装依赖  yarn remove [package] 删除依赖包
@@ -303,7 +302,6 @@ white-space: nowrap;
 		* yarn run build 打包
 	* 常见错误：
 		
-
 * #### npm和yarn区别
 	| npm | yarn |
 	| ------------- | ----------- |
