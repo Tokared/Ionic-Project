@@ -42,6 +42,28 @@
 	```
 	{{ 输入数据 | 管道名字 }} 
 	```
+
+* #### 组件Components
+	* 日期选择 datetime
+	```html
+	<ion-datetime displayFormat="YYYY年MM月" cancelText='取消' doneText='确认'>
+    </ion-datetime>
+	```
+	* 加载动画 spinner
+	```html
+	<ion-spinner name="bubbles"></ion-spinner>
+	```
+	* 模态框
+	```typescript
+	let modal = this.modalCtrl.create(ModalPage);//创建新的页面——ModalPage
+	addModal.onDidDismiss(id => {   //传回参数存入id 并执行操作
+      if (id) {		
+        this.submit()
+      }
+    })
+    modal.present();//页面展示
+	```
+
 * #### 注：在每次请求的时候打印日志，不用每次console.log。
 	
 * #### 生命周期	
@@ -68,12 +90,31 @@ overflow: hidden;
 ```
 * #### flex  
 	* 多行控制: white-space:(normal 正常换行/nowrap禁止换行)
-	
+* #### 栅格系统(grid-row-col)
+	* 栅格系统都会自动给每行(row)的分12列(col).
+	```
+	每列占屏比例设置：col-12/显示列数
+	例：占3列也就是 3/12=4 => col-4 
+	```
+	不同屏幕大小对应的参数
+	```
+	col-xs-超小屏幕 手机 (<768px),
+	col-sm-小屏幕 平板 (≥768px),
+	col-md-中等屏幕 桌面显示器 (≥992px)(栅格参数)
+	```
+* #### 行内显示，有超出则隐藏并添加为...
+```Css
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+```	
+
+
 ****
 
 ### Angular<br>
 * #### Command
-	* 在html标签里的item 不用{{ }}表示，直接是调用即可。
+	* 在html标签里的item 不用{{}}表示，直接是调用即可。
 	1. ngIf
 	   ```html
 	   <div *ngIf="condition">...</div>
@@ -141,7 +182,69 @@ overflow: hidden;
 	```javascript
 	const param = 1;
 	```
-
+	* 解构赋值
+		* 解构：允许按照一定模式，从数组和对象中提取值，对变量进行赋值
+		```javascript
+		//数组
+		let a = 1;
+		let b = 2;
+		let c = 3;
+		// 等同于下面(数组形式)
+		let [a,b,c] = [1,2,3];
+		/*-----------------------*/
+		let [x = 1] = [undefined];
+		x // 1
+		let [x = 1] = [null];
+		x // null
+		/*-----------------------*/
+		
+		//对象 
+		let { foo, bar } = { foo: "aaa", bar: "bbb" };
+		foo // "aaa"
+		bar // "bbb"
+		/*-----------------------*/
+		let { foo: baz } = { foo: "aaa", bar: "bbb" };
+		baz // "aaa"
+		foo // error: foo is not defined
+		//先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。
+		
+		/*-----------------------*/
+		//字符串
+		const [a, b, c, d] = 'code';
+		a // "c"
+		b // "o"
+		c // "d"
+		d // "e"
+		
+		```
+	* tips:
+		* 如果解构不成功，变量的值就等于undefined
+		* 只有当一个数组成员严格等于undefined，默认值才会生效
+		* foo是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foo
+		* 只要等号右边的值不是对象或数组，就先将其转为对象。
+		* undefined和null无法转为对象，不能进行解构赋值。
+	* 作用：
+		1. 交换变量的值
+		```javascript
+		let x = 1;
+		let y = 2;
+		[x, y] = [y, x];
+		```
+		2. 接收函数返回的单值或多值
+		```javascript
+		// 返回一个数组
+		function example() {
+		  return [1, 2, 3];
+		}
+		let [a, b, c] = example();	
+		```
+		3. 提取json数据 (最多)
+		```javascript
+		let { id, status, data: number } = jsonData; //jsonData为json对象
+		```
+		4. 函数参数的定义和设默认值
+		5. 遍历Map结构
+		6. 作为模块的指定(公共)方法
 ****
 
 ### Project Packaging (Ioinc) <br>
@@ -168,7 +271,7 @@ overflow: hidden;
 	
 	* [Reference document](https://blog.csdn.net/qq_20264891/article/details/79319408)<br> 
 	
-###	regular expression  正则表达式<br>
+###	Regular Expression  正则表达式<br>
 * #### 字符串中截取指定字符
 	```
 	/"[^"]+"/g   
@@ -178,7 +281,39 @@ overflow: hidden;
 	.replace(/\"/g, "")
 	```
 ****
+
+### NPM
+* #### npm全称为Node Package Manager，是一个基于Node.js的包管理器，用来安装项目所需依赖。
+	* 常用命令：
+		* npm install
+		* npm start
+		* 使用淘宝 NPM 镜像： npm install -g cnpm --registry=https://registry.npm.taobao.org (npm => cnpm)
+	* 常见错误：
+		* -errno -4058 
+		1、安装源的问题，具体报错时会有写。改为淘宝镜像即可。
+		2、你没有在工程目录下启动项目，所以npm start后，找不到项目进而报错。
  
+### Yarn
+* #### JS 包管理工具，正如官方文档中写的，Yarn 是为了弥补 npm 的一些缺陷而出现的。
+	
+	* 常用命令：
+		* 
+		* yarn install 安装依赖  yarn remove [package] 删除依赖包
+		* yarn upgrade 更新包版本
+		* yarn start 启动
+		* yarn run build 打包
+	* 常见错误：
+		
+
+#### npm和yarn区别
+| npm | yarn |
+| ------------- | ----------- |
+|  npm install  |  yarn	|
+|  npm install [package] |  yarn add  [package]	|	
+|  npm uninstall [package]   | yarn remove [package]	|		
+|  npm update |  yarn upgrade	|	
+ 
+****
 
 	
 	
