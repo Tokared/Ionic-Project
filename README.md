@@ -42,7 +42,8 @@
 	```
 	{{ 输入数据 | 管道名字 }} 
 	```
-
+* #### ionic 页面的渲染和异步请求是并列进行的，请求的数据(如果json对象有多层对象)，页面渲染，加载数据时，若请求数据还未获取，则默认为undefined，嵌套对象则会报错，其属性undefined
+	* tips: 请求时间过长时，页面若有请求数据的展示，需添加 ngIf 判断对象是否存在，等对象获取后再展示。
 * #### 组件Components
 	* 日期选择 datetime
 	```html
@@ -62,6 +63,14 @@
       }
     })
     modal.present();//页面展示
+	```	
+	* 锚点,Content组件
+	```javascript
+	import { Content } from 'ionic-angular';
+	@ViewChild(Content) content: Content;
+	ionViewDidEnter() {
+		this.content.scrollToBottom();
+	}
 	```
 
 * #### 注：在每次请求的时候打印日志，不用每次console.log。
@@ -78,10 +87,33 @@
 | ionViewCanEnter     | 用于限制是否可以进入某个页面	|
 | ionViewCanLeave     | 用于限制是否可以离开这个页面	|
 
+	* constructor()只有在页面初始化的时候执行一次
 ****
 
 ### Css<br>
+* #### 动画
+	```css
+	// 旋转 rotate
+	transform: rotate(-20deg); //正数表示顺时针旋转，负数表示逆时针旋转
+	// 移动 translate
+	transform: translate(x,y) // 水平方向和垂直方向同时移动
+	transform: translateX(x)  // 水平方向移动
+	transform: translateY(y)  // 垂直方向移动
+	// 缩放 scale
+	transform: scale(X,Y) // 元素进行缩放,X，Y两个方向的缩放倍数是一样的。并以X为准。
+	transform: scaleX(x)  // 元素只在X轴(水平方向)缩放元素
+	transform: scaleY(y)  // 元素只在y轴(垂直方向)缩放元素
+	// 扭曲 skew
+	transform: skew(x,y) // 扭曲方向(水平,垂直)
+	transform: skewX(x) // 扭曲方向(水平)
+	transform: skewY(y) // 扭曲方向(垂直)
+	// 矩阵 matrix
+	
+	// 改变元素基点 transform-origin
+	transform-origin(X,Y):用来设置元素的运动的基点（参照点）。
+	```	
 * #### 显示多行，且有行数限制
+	* 多行控制: white-space:(normal 正常换行/nowrap禁止换行)
 	```css
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -89,7 +121,14 @@
 	overflow: hidden;
 	```
 * #### flex  
-	* 多行控制: white-space:(normal 正常换行/nowrap禁止换行)
+	* 排列方向：flex-direction: row/column/row-reverse/column-reverse
+	* 垂直居中: display:flex;align-items:center
+	* 多行控制: flex-wrap：nowrap(单行)/wrap(多行)/wrap-reverse(反向多行)
+	* 等分布局：
+		```css
+		外层 displat:flex; justify-content:space-around(内层div均匀分布)/space-between(内层div两端对齐)
+		内层 flex-grow:1;(使每个div所占比例相同) flex:0 0 33.33%; (三等分)
+		```
 * #### 栅格系统(grid-row-col)
 	* 栅格系统都会自动给每行(row)的分12列(col).
 	```
@@ -108,6 +147,41 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	```	
+* #### 水印
+	# 满屏效果(遮盖层)
+	```css
+	position:fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	```
+	# canvas 实现
+	```html
+	  <canvas id="waterMark" width='140' height='140'></canvas>
+	```
+	```javascript
+	watermark() {
+	  let canvas = <HTMLCanvasElement>document.getElementById('waterMark');
+      var ctx = canvas.getContext('2d');
+      canvas.width = document.getElementById('gridheight').clientWidth;
+      // 绘制文字内容
+      for (let p = 0; p < 4; p++) {
+        for (let q = 0; q < 6; q++) {
+          // 绘制文字  注意：：绘制斜体文字 旋转以后会发生位移，所以必须在旋转之后进行位置的调整；
+          let text = this.user.userName + this.lastPhone;
+          ctx.save();//保存原来的状态  绘制字体都是需要旋转倾斜  那么之前绘制的图片就要进行状态的保存
+          ctx.rotate(-Math.PI / 6);//绘制倾斜字体
+          ctx.translate((q * -12), -(5 * p));//发生位移进行位移的恢复
+          ctx.font = "12px serif";
+          ctx.fillStyle = '#999';
+          ctx.fillText(text, ((p * 100)), ((q * 60) + 60));
+          ctx.globalAlpha = 0.5;
+          ctx.restore();//状态的恢复
+        }
+      }
+    }
+	```
 ****
 
 ### Angular<br>
@@ -148,7 +222,39 @@
 	{{ 输入数据 | 管道名字 : 管道参数 }} 
 
 	{{ 输入数据 | 管道名字 }} 
-```	
+```
+
+****
+
+### Javascript 
+* #### Grammar
+	* 深拷贝和浅拷贝
+	```
+	基本类型--名值存储在栈内存中
+	引用数据类型--名存在栈内存中，值存在于堆内存中，但是栈内存会提供一个引用的地址指向堆内存中的值
+	假设a为引用数据类型，b对a进行拷贝，由于a与b指向的是同一个地址，所以自然b也受了影响，这就是所谓的浅拷贝了。
+	浅拷贝，是将目标对象值和引用都拷贝给新对象。
+	深拷贝，是创建一个对象，并拷贝目标对象各个层级的属性。
+	
+	// JSON对象的parse和stringify (深拷贝)
+	var target = JSON.parse(JSON.stringify(source));
+	```
+	* ajax异步请求
+	
+	* 序列化：
+		```javascript
+		//由JSON字符串转换为JSON对象
+		let last=obj.toJSONString()
+
+		let obj = JSON.parse(str)  
+		
+		let obj = eval('(' + str + ')')
+		
+		//将JSON对象转化为JSON字符
+		var last=obj.toJSONString() 
+
+		var last=JSON.stringify(obj)
+		```
 ****
 
 ### ES6 Grammar<br>
@@ -242,6 +348,86 @@
 		4. 函数参数的定义和设默认值
 		5. 遍历Map结构
 		6. 作为模块的指定(公共)方法
+	* 字符串扩展
+		* 字符串遍历 (for...of循环)
+		```javascript
+		for (let codePoint of 'foo') {
+		  console.log(codePoint)
+		}
+		// "f"
+		// "o"
+		// "o"
+		```
+		* 字符串匹配(includes(), startsWith(), endsWith())  字符串重复(repeat()函数) 提示字符串格式补齐(padStart(x,y),padEnd(x,y))
+		* 提示字符串格式。
+		```javascript
+		// includes()：返回布尔值，表示是否找到了参数字符串。
+		// startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
+		// endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。
+		let s = 'Hello world!';
+
+		s.startsWith('Hello') // true	s.startsWith('world', 6) // true
+		s.endsWith('!') // true			s.endsWith('Hello', 5) // true
+		s.includes('o') // true			s.includes('Hello', 6) // false
+		
+		// repeat(n): 返回一个新字符串，表示将原字符串重复n次,n取整。n = Infinity 或 n < -1 则报错.
+		'na'.repeat(Infinity)
+		// RangeError
+	
+		// padStart(x,y)：从头部补齐 x是字符串补全生效的最大长度，y是用来补全的字符串。
+		// padEnd(x,y): 从尾部补齐 
+		'12'.padStart(10, 'YYYY-MM-DD') // "YYYY-MM-12"
+		
+		//正则匹配
+		matchAll()
+		```
+	* 对象扩展
+		* 属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串[object Object]
+		* name()属性可获取函数名。
+		* Object.getOwnPropertyDescriptor() 获取对象属性的描述(每个属性都对应一个描述对象)
+		```javascript
+		let obj = { foo: 123 };
+		Object.getOwnPropertyDescriptor(obj, 'foo')
+		// 描述对象如下 
+		//	{ 
+		//    value: 123,
+		//    writable: true,
+		//    enumerable: true,   该属性为可枚举性(false 表示某些操作下会忽略当前属性(如本例中的foo) )
+		//    configurable: true
+		//  }
+		
+		Object.assign (target, source1,source2, source3, …);
+		//第一个参数是目标对象，后面的都是源对象。(深拷贝)
+		``` 
+		* for...in循环：只遍历对象自身的和继承的可枚举的属性。(继承表示从原型继承的基础属性) 
+		* Object.assign()：忽略enumerable为false的属性，只拷贝对象自身的可枚举的属性。(浅拷贝)
+		* tips: 
+			1. 大多数时候，我们只关心对象自身的属性。所以，尽量不要用for...in循环，而用Object.keys()代替。
+			2. toString和length属性无法遍历(enumerable)
+	* Promise() 
+		* 问题：是代码冗余，请求任务多时，一堆的then，也使得原来的语义变得很不清楚。此时我们引入了另外一种异步编程的机制：Generator。
+
+****
+
+### ES7 Grammar<br>
+* #### Command
+	* includes(): 查找一个值在不在数组里,若是存在则返回true,不存在返回false.
+	* tips: 对象类型的数组，二维数组，这些，是无法判断的.
+	```javascript
+	//接收俩个参数：要搜索的值和搜索的开始索引
+	['a', 'b', 'c', 'd'].includes('b', 1)      // true
+	['a', 'b', 'c', 'd'].includes('b', 2)      // false
+	
+	//处理 NAN === NAN => flase
+	let demo = [1, NaN, 2, 3]
+	demo.indexOf(NaN)        //-1
+	demo.includes(NaN)       //true
+	```
+	* Generator 
+
+* #### Command
+	* asayc await
+	
 ****
 
 ### Project Packaging (Ioinc) <br>
@@ -273,7 +459,7 @@
 	```
 	/"[^"]+"/g   
 	```
-* ####  去除字符串中的指定符号
+* ####  去除字符串中的指定符号	
 	```
 	.replace(/\"/g, "")
 	```
@@ -308,6 +494,32 @@
 	|  npm uninstall [package]   | yarn remove [package]	|		
 	|  npm update |  yarn upgrade	|	
  
+ 
+****
+
+### 前端优化 
+* #### 优化
+	* html
+
+	* css
+		图片尽量放在一张图内，通过图片定位获取局部图
+	* javascript
+		* dns预解析
+		* dom操作(重绘(盒子模型的原位置不变)、回流(盒子模型的原位置改变))
+		* 减少请求数
+****
+
+### 关于计算机 
+* #### 工作原理
+	* 操作系统
+		* Unix: 我们现在所用的电脑的操作系统最初是Unix。
+		* Linux(Linus(作者) +minix): unix => mini-Unix
+ 	* 时间戳：格林威治时间自1970年1月1日(00:00:00 GMT)至当前时间的总秒数。
+		* 计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间。
+		* 英国格林威治：世界标准时间，是本初子午线上的地方时。
+		* UTC( GMT = UTC ) ＋ 时区差(东加西减) ＝ 本地时间 (中国以北京时间为准，北京在东八区) 
+		* 起初计算机操作系统是32位，而时间也是用32位表示。32位能表示的最大值是2147483647。1年365天的总秒数是31536000，2147483647/31536000 = 68.1，也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000 (即1901年12月13日20时45分52秒)，造成时间回归的现象。
+		* 解决：64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒。
 ****
 
 	
