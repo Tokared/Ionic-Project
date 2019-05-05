@@ -64,6 +64,19 @@
     })
     modal.present();//页面展示
 	```	
+	* events事件,发布、订阅
+	```
+	// 父页面  订阅消息，退出时销毁页面
+	events.subscribe('user:out', () => {
+      this.viewCtrl.dismiss()
+    })
+	   
+	ionViewWillUnload() {
+		this.events.unsubscribe('user:out');
+	}
+	// 子页面  发布消息  (父子页面消息名统一)
+	this.events.publish('user:out')	
+	```
 	* 锚点,Content组件
 	```javascript
 	import { Content } from 'ionic-angular';
@@ -72,7 +85,53 @@
 		this.content.scrollToBottom();
 	}
 	```
-
+	* Md5加密
+	```javascript
+	import { Md5 } from 'ts-md5/dist/md5';
+	// 参数只能是字符串类型
+	Md5.hashStr(param) 
+	```
+	* pop 回调方法
+	```
+	// 回调函数
+	CallbackFunction = (params) => {
+      return new Promise((resolve, reject) => {
+        if (typeof (params) !== 'undefined') {
+          resolve('ok');
+          //判断返回时否勾选
+          if (params.do === "no") {
+            console.log('进入回退函数')
+          }
+        } else {
+          reject(Error('error'))
+        }
+    });
+	}
+	```
+* #### Ionic插件
+	* photo-library
+		* [Reference document](https://www.jason-z.com/post/26)<br>
+	1. saveImage()方法不报错
+		1. requestAuthorization不定义option的时候，默认write权限是false
+		```
+		photoLibrary.requestAuthorization({
+		  "read": true,
+		  "write": true
+		}).then(()=>{})
+		```
+		2. android的写权限增加AndroidManifest.xml
+		```
+		<platform name="android">
+		  <config-file target="AndroidManifest.xml" parent="/*">
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		  </config-file>
+		</platform>
+		```
+		3. 图片地址并且带有参数,则添加"&ext=.jpg"强制下载图片
+		```
+		url+'&ext=.jpg'
+		```
+		
 * #### 注：在每次请求的时候打印日志，不用每次console.log。
 	
 * #### 生命周期	
@@ -254,6 +313,11 @@
 		var last=obj.toJSONString() 
 
 		var last=JSON.stringify(obj)
+		```
+	* 延时
+		```
+		// 作用是由于渲染速度造成图片不显示的bug,采用延时解决
+		setTimeout( ()=>{},time)
 		```
 ****
 
@@ -445,10 +509,11 @@
 	```
 	ionic cordova build android 
 	ionic cordova build ios 
+	
+	ionic cordova run android  打包测试
 	```
 
 * #### 问题：
-	* failed to install EAccountSDK
 	* Error: xcodebuild was not found. Please install version 7.0.0 or greater from App Store
 		* 原因: windows系统 没有xcode IDE
 	
@@ -463,6 +528,11 @@
 	```
 	.replace(/\"/g, "")
 	```
+* ####  保留小数点后两位	
+	```
+	.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')
+	```
+	
 ****
 
 ### NPM
@@ -520,6 +590,13 @@
 		* UTC( GMT = UTC ) ＋ 时区差(东加西减) ＝ 本地时间 (中国以北京时间为准，北京在东八区) 
 		* 起初计算机操作系统是32位，而时间也是用32位表示。32位能表示的最大值是2147483647。1年365天的总秒数是31536000，2147483647/31536000 = 68.1，也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000 (即1901年12月13日20时45分52秒)，造成时间回归的现象。
 		* 解决：64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒。
+	* MD5加密
+		1. 为任何文件产生一个同样独一无二的“数字指纹”，如果任何人对文件做了任何改动，其MD5值也就是对应的“数字指纹”都会发生变化。
+		2. “数字指纹”是一个文件名相同，文件扩展名为.md5的文件，在这个文件中通常只有一行文本，例如：
+		```
+		MD5 (tanajiya.tar.gz) = 38b8c2c1093dd0fec383a9d9ac940515   (举个栗子)
+		```
+		3. 
 ****
 
 	
