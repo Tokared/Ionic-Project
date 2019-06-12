@@ -188,6 +188,24 @@
 		外层 displat:flex; justify-content:space-around(内层div均匀分布)/space-between(内层div两端对齐)
 		内层 flex-grow:1;(使每个div所占比例相同) flex:0 0 33.33%; (三等分)
 		```
+	* 多个div垂直分布，其中有一个高度需要自适应手机高度:
+		```
+		<div class="father">
+			<div class="cild-one"></div>
+			<div class="cild-two"></div>
+			<div class="cild-three"></div>
+		</div>
+		/* css */
+		.father{
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;   //主轴方向
+		}
+		.cild-two{
+			flex-grow: 1;
+		}
+		```
 * #### 栅格系统(grid-row-col)
 	* 栅格系统都会自动给每行(row)的分12列(col).
 	```
@@ -298,8 +316,16 @@
 	// JSON对象的parse和stringify (深拷贝)
 	var target = JSON.parse(JSON.stringify(source));
 	```
-	* ajax异步请求
+	* 对象转字符串
+		* parse()将字符串中解析出json对象，stringify()则是将对象解析成字符串
+		* toString()可把一个 逻辑值 转换为字符串，并返回结果。
+	```
+	// JSON.parse()、JSON.stringify()和toString()的区别
+	Md5.hashStr(JSON.stringify(obj))
+	```
 	
+	* ajax异步请求
+		XHR 
 	* 序列化：
 		```javascript
 		//由JSON字符串转换为JSON对象
@@ -319,6 +345,9 @@
 		// 作用是由于渲染速度造成图片不显示的bug,采用延时解决
 		setTimeout( ()=>{},time)
 		```
+		
+	* 栈溢出
+		
 ****
 
 ### ES6 Grammar<br>
@@ -348,6 +377,44 @@
 		```javascript
 		const param = 1;
 		```
+	* Set (数据结构)
+		* 类似于数组，但是成员的值都是唯一的，没有重复的值( === )。(可用来去重)
+		```
+		// add(value) 添加某个值
+		// delete(value) 删除某个值，返回一个布尔值，表示删除是否成功
+		// has(value) 返回一个布尔值，表示该值是否为Set的成员
+		// clear() 清除所有成员 
+		const s = new Set();
+		[2, 3, 5, 4, 5, 2, 2].forEach(x => s.add(x));  // [2,3,5,4]
+
+		// 去除数组、字符串里的重复成员 
+		[...new Set(array)]
+		
+		[...new Set('ababbc')].join('')   // "abc"
+		// Array.from方法可以将 Set 结构转为数组。
+		```
+	* WeakSet (只针对于对象为键名的键值对)
+		 * 弱引用
+			* 优点：WeakSet 适合临时存放一组对象，成员都是唯一，以及存放跟对象绑定的信息。只要这些对象在外部消失，它在 WeakSet 里面的引用就会自动消失，
+				* 有助于防止内存泄漏。
+				* 部署私有属性。
+			* 缺点：成员只能是对象,且无法遍历其成员。
+		*  add()、delete()、has()
+	* map (键值对)
+		* 属性 
+			* size,返回成员总数;
+			* set(key, value),返回的是当前的Map对象,可链式写法
+				```
+				let map = new Map()
+				  .set(1, 'a')
+				  .set(2, 'b')
+				  .set(3, 'c');
+				```
+			* get(key),读取key对应的键值，如果找不到key，返回undefined
+			* has(key),返回一个布尔值,键值是否存在
+			* delete(key),返回一个布尔值，表示删除是否成功
+			* clear()
+	
 	* 解构赋值
 		* 解构：允许按照一定模式，从数组和对象中提取值，对变量进行赋值
 		```javascript
@@ -490,7 +557,12 @@
 	* Generator 
 
 * #### Command
-	* asayc await
+	* async await异步 
+	```
+	async funcrtion(){
+	   await service();
+	}
+	```
 	
 ****
 
@@ -504,6 +576,7 @@
 * #### 工具
 	*  gitbash
 	*  VSCode	
+		* Tips: Ctrl+鼠标左键的方式来查看类或变量名的定义声明，通过Alt + ←（方向左键）返回到原来的位置
 	
 * #### 打包指令
 	```
@@ -569,10 +642,12 @@
 
 ### 前端优化 
 * #### 优化
-	* html
-
+	* html5
+		* &emsp; 正好是1个中文宽度   &ensp; 是1/2个中文宽度
+		* 属性：contenteditable (Eleditor移动端富文本编辑器)
 	* css
 		图片尽量放在一张图内，通过图片定位获取局部图
+		flex
 	* javascript
 		* dns预解析
 		* dom操作(重绘(盒子模型的原位置不变)、回流(盒子模型的原位置改变))
@@ -590,13 +665,20 @@
 		* UTC( GMT = UTC ) ＋ 时区差(东加西减) ＝ 本地时间 (中国以北京时间为准，北京在东八区) 
 		* 起初计算机操作系统是32位，而时间也是用32位表示。32位能表示的最大值是2147483647。1年365天的总秒数是31536000，2147483647/31536000 = 68.1，也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000 (即1901年12月13日20时45分52秒)，造成时间回归的现象。
 		* 解决：64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒。
-	* MD5加密
-		1. 为任何文件产生一个同样独一无二的“数字指纹”，如果任何人对文件做了任何改动，其MD5值也就是对应的“数字指纹”都会发生变化。
-		2. “数字指纹”是一个文件名相同，文件扩展名为.md5的文件，在这个文件中通常只有一行文本，例如：
-		```
-		MD5 (tanajiya.tar.gz) = 38b8c2c1093dd0fec383a9d9ac940515   (举个栗子)
-		```
-		3. 
+	* 加密 (常用CryptoJS加密包)
+		* base64
+		* Md5
+			1. 为任何文件产生一个同样独一无二的“数字指纹”，如果任何人对文件做了任何改动，其MD5值也就是对应的“数字指纹”都会发生变化。
+			2. “数字指纹”是一个文件名相同，文件扩展名为.md5的文件，在这个文件中通常只有一行文本，例如：
+			```
+			Md5.hashStr(String) = 38b8c2c1093dd0fec383a9d9ac940515   (举个栗子)
+			```
+			3. Tips:单向加密且不可逆，它将任意长度的字符串，经过算法计算后生成固定长度的数据，一般为16位表示。
+		* AES加密
+			1. 对称加密,加密前双方都应该知道加密算法和密钥。
+		* RSA加密
+			1. 非对称加密,双方各自产生自己的密钥，然后将自己的加密密钥传递给对方，在使用时先给数据使用对方的加密密钥加密
+		
 ****
 
 	
